@@ -1,4 +1,4 @@
-require "openproject/tools/version"
+require 'openproject/tools/version'
 
 module Openproject
   module Tools
