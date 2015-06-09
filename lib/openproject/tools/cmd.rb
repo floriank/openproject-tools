@@ -32,7 +32,7 @@ module Openproject
       end
 
       desc 'test PATH', 'run tests for a given plugin at PATH'
-      def test(path = '.')
+      def test(_path = '.')
         puts 'NYI'
       end
     end

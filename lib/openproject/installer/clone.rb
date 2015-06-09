@@ -7,24 +7,24 @@ module Openproject
 
       desc 'This will clone a version of OpenProject into a path'
       argument :path, type: :string, required: true,
-               desc: 'The path to clone into'
+                      desc: 'The path to clone into'
 
       class_option :auto, type: :boolean,
-                   desc: 'Ask no questions during installation'
+                          desc: 'Ask no questions during installation'
       class_option :branch, type: :string,
-                   default: BRANCH,
-                   desc: 'The version of OpenProject to use'
+                            default: BRANCH,
+                            desc: 'The version of OpenProject to use'
       class_option :repository, type: :string,
-                   default: REPO_URL,
-                   desc: 'Specify different repoistory URL'
+                                default: REPO_URL,
+                                desc: 'Specify different repoistory URL'
       class_option :developer, type: :boolean,
-                   default: false,
-                   desc: 'This should be a developer clone'
+                               default: false,
+                               desc: 'This should be a developer clone'
 
       def check_path
         if Dir.exists? path
           remove = false
-          say_status :clone, "Directory found!", :yellow
+          say_status :clone, 'Directory found!', :yellow
 
           unless options[:auto]
             remove = yes? "Remove #{path}?"
@@ -66,7 +66,14 @@ module Openproject
         if options[:developer]
           "git clone --quiet #{options[:repository]} #{path}"
         else
-          "git clone --quiet --depth 1 --single-branch --branch #{options[:branch]} #{options[:repository]} #{path}"
+          %{git clone
+              --quiet
+              --depth 1
+              --single-branch
+              --branch #{options[:branch]}
+              #{options[:repository]}
+              #{path}
+          }.split.join(' ')
         end
       end
     end

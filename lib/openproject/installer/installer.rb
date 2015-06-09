@@ -1,5 +1,5 @@
 require 'openproject/installer/clone'
-require 'pry'
+
 module Openproject
   class Install
     def start(options)
@@ -10,12 +10,10 @@ module Openproject
     private
 
     def install!(path, options)
-      cmd = Openproject::Installer::Clone.new([path], options)
-      cmd.invoke_all
+      [
+        Openproject::Installer::Clone.new([path], options),
+        Openproject::Installer::Configure.new([path], options)
+      ].each(&:invoke_all)
     end
-
-    # def symbolize_keys(hash)
-    #   hash.inject({}) { |memo,(k,v)| memo[k.to_sym] = v; memo }
-    # end
   end
 end
