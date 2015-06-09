@@ -1,4 +1,5 @@
 require 'openproject/installer/clone'
+require 'openproject/installer/configure'
 
 module Openproject
   class Install
@@ -11,7 +12,7 @@ module Openproject
 
     def install!(path, options)
       [
-        Openproject::Installer::Clone.new([path], options),
+#        Openproject::Installer::Clone.new([path], options),
         Openproject::Installer::Configure.new([path], options)
       ].each(&:invoke_all)
     end
